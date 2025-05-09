@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panic Bully</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo-smk2.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="header d-flex align-items-center justify-content-center">
+    <img src="logo-sulsel.png" alt="Logo SMK2 Left" class="me-3" style="width: 50px; height: auto;" />
+    <h1 class="mb-0">Button PanicBully</h1>
+    <img src="logo_smkn2pinrang.png" alt="Logo SMK2" class="ms-3" style="width: 50px; height: auto;" />
+</div>
+
+<div class="card">
+    <h2 id="tlt">Report Bullying</h2>
+    <p id="txt">
+    Jika Anda Merasa Tidak Aman Atau Merasa Terbuly Silahkkan Laporkan Dengan Click Tombol Report Dibawah
+    </p>
+
+    <div class="container">
+        <button id="panic-btn" class="btn" onclick="getLocation()">Report</button>
+        <div class="response" id="response"></div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Community Programmer | Ikhsan Pratama SMKN2PINRANG</p>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>

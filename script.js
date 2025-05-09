@@ -1,9 +1,28 @@
+
 function getLocation() {
+    // Play click sound
+    playClickSound();
+
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(sendCoordinates, showError);
+        navigator.geolocation.getCurrentPosition(sendCoordinates, showError, {
+            enableHighAccuracy: true, // Enable high accuracy
+            timeout: 5000, // Timeout after 5 seconds
+            maximumAge: 0 // Do not use cached location
+        });
     } else {
-        alert("Geolocation tidak didukung oleh browser ini.");
+        alert("Geolocation is not supported by this browser.");
     }
+}
+
+function playClickSound() {
+    // Create AudioContext
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    oscillator.type = 'sine'; // Wave type
+    oscillator.frequency.setValueAtTime(2000, audioContext.currentTime); // Frequency for click sound
+    oscillator.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.1); // Duration of the click sound
 }
 
 function sendCoordinates(position) {
@@ -12,11 +31,12 @@ function sendCoordinates(position) {
 
     // Send data to server using AJAX
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "", true);
+    xhr.open("POST", "http://localhost:3000/send", true); // Update the URL to your Node.js backend
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            document.getElementById("response").innerHTML = "🚨 Bantuan sedang menuju ke lokasi Anda!";
+            var response = JSON.parse(xhr.responseText);
+            document.getElementById("response").innerHTML = "🚨 Help is on the way to your location!";
             document.getElementById("panic-btn").style.display = "none"; // Hide the button
             document.getElementById("txt").style.display = "none";
             document.getElementById("tlt").style.display = "none";
@@ -30,16 +50,16 @@ function sendCoordinates(position) {
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            alert("Pengguna menolak permintaan untuk mendapatkan lokasi.");
+            alert("User  denied the request for Geolocation.");
             break;
         case error.POSITION_UNAVAILABLE:
-            alert("Lokasi tidak tersedia.");
+            alert("Location information is unavailable.");
             break;
         case error.TIMEOUT:
-            alert("Permintaan untuk mendapatkan lokasi telah timeout.");
+            alert("The request to get user location timed out.");
             break;
         case error.UNKNOWN_ERROR:
-            alert("Terjadi kesalahan yang tidak diketahui.");
+            alert("An unknown error occurred.");
             break;
     }
 }
