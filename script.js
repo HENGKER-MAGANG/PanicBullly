@@ -31,20 +31,21 @@ function sendCoordinates(position) {
 
     // Send data to server using AJAX
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3000/send", true); // Update the URL to your Node.js backend
+    xhr.open("POST", "https://your-vercel-app.vercel.app/api/send", true); // Ganti dengan URL API Anda
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             document.getElementById("response").innerHTML = "🚨 Help is on the way to your location!";
-            document.getElementById("panic-btn").style.display = "none"; // Hide the button
+            document.getElementById("panic-btn").style.display = "none"; // Sembunyikan tombol
             document.getElementById("txt").style.display = "none";
             document.getElementById("tlt").style.display = "none";
         }
     };
-    // Send coordinates to the server
+    // Kirim koordinat ke server
     xhr.send("latitude=" + latitude + "&longitude=" + longitude);
 }
+
 
 
 function showError(error) {
